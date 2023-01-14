@@ -122,7 +122,7 @@ static void vTask2(void *pvParameters)
 {
   static uint8_t dane_enkoder = 0;
   static uint8_t klawisz_enkoder = 0;
-  static uint8_t dane_wyswietlacz[4] = {0, 0, 0, 0};
+//  static uint8_t dane_wyswietlacz[4] = {0, 0, 0, 0};
   static uint8_t WzorzecHasla[4] = {1, 1, 1, 1};
 
   for(;;)
@@ -134,7 +134,7 @@ static void vTask2(void *pvParameters)
       dane_wyswietlacz[klawisz_enkoder] = dane_enkoder;
       if(klawisz_enkoder == 4)
       {
-        if(dane_wyswietlacz[0] == 1 && dane_wyswietlacz[1] == 1 && dane_wyswietlacz[2] == 1 && dane_wyswietlacz[3]== 1)
+        if(dane_wyswietlacz[0] == 1 && dane_wyswietlacz[1] == 2 && dane_wyswietlacz[2] == 3 && dane_wyswietlacz[3]== 4)
         {
           HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_RESET);
 					HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
