@@ -69,6 +69,7 @@ xQueueHandle Wys_D;
 
 xQueueHandle HasloJendenZnak;
 xQueueHandle ZmianaCyfry;
+xQueueHandle ZmianaCyfry2;
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -87,7 +88,7 @@ static void vTask1(void *pvParameters)
 			xQueueReceive(Wys_B, &znak[1], ( TickType_t ) 0 );
 			xQueueReceive(Wys_C, &znak[2], ( TickType_t ) 0 );
 			xQueueReceive(Wys_D, &znak[3], ( TickType_t ) 0 );
-      xQueueReceive(ZmianaCyfry, &wyswietl, (TickType_t)0);
+      xQueueReceive(ZmianaCyfry2, &wyswietl, (TickType_t)0);
 			LED_buf[0] = seg7[znak[0]];
 			LED_buf[1] = seg7[znak[1]];
 			LED_buf[2] = seg7[znak[2]];
@@ -99,8 +100,8 @@ static void vTask1(void *pvParameters)
       HAL_GPIO_WritePin(Anoda_1_GPIO_Port, Anoda_4_Pin|Anoda_3_Pin|Anoda_2_Pin
                                           |Anoda_1_Pin, GPIO_PIN_RESET);
 		  // ustawienie segmentow
-      Katoda_A_GPIO_Port->BSRR = (uint32_t)LED_buf[LED_ptr];
-		  Katoda_A_GPIO_Port->BSRR = (uint32_t)(~LED_buf[LED_ptr]) << 16;
+      Katoda_A_GPIO_Port->BSRR = (uint32_t)LED_buf[wyswietl];
+		  Katoda_A_GPIO_Port->BSRR = (uint32_t)(~LED_buf[wyswietl]) << 16;
 		
 		  // wybor wyswietlacza
       switch (wyswietl)
@@ -224,9 +225,6 @@ static void vTask3(void *pvParameters)
 					break;
 
 			}
-			
-			xQueueSend(HasloJendenZnak , &EnkoderWartosc, portMAX_DELAY);
-			xQueueSend(ZmianaCyfry , &klawiszWyswietlacza, portMAX_DELAY);
 		}
 		flaga_zmiany = 0;
 		if (xSemaphoreTake(Tim20ms, portMAX_DELAY))
@@ -257,6 +255,9 @@ static void vTask3(void *pvParameters)
 					break;
 			}
 		}
+			xQueueSend(HasloJendenZnak , &EnkoderWartosc, portMAX_DELAY);
+			xQueueSend(ZmianaCyfry , &klawiszWyswietlacza, portMAX_DELAY);
+			xQueueSend(ZmianaCyfry2 , &klawiszWyswietlacza, portMAX_DELAY);
   }
 }
 
@@ -345,6 +346,7 @@ int main(void)
 
   HasloJendenZnak = xQueueCreate( 16, sizeof(uint8_t) );
   ZmianaCyfry = xQueueCreate( 16, sizeof(uint8_t) );
+  ZmianaCyfry2 = xQueueCreate( 16, sizeof(uint8_t) );
   
   xTaskCreate(vTask1, "WyswietlaczSiedmioSegmentowy", configMINIMAL_STACK_SIZE, NULL, main_TASK_PRIORITY, NULL);
 	xTaskCreate(vTask2, "PorownywanieHasla", configMINIMAL_STACK_SIZE, NULL, main_TASK_PRIORITY, NULL);

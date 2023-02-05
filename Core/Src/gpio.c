@@ -60,8 +60,8 @@ void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(GPIOD, Katoda_A_Pin|Katoda_B_Pin|Katoda_C_Pin|Katoda_D_Pin
                           |Katoda_E_Pin|Katoda_F_Pin|Katoda_G_Pin|Katoda_H_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PCPin PCPin PCPin */
-  GPIO_InitStruct.Pin = Enkoder_1_Pin|Enkoder_2C11_Pin|Klawisz_Pin;
+  /*Configure GPIO pins : PCPin PCPin */
+  GPIO_InitStruct.Pin = Enkoder_1_Pin|Klawisz_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);

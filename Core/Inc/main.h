@@ -69,8 +69,6 @@ void Error_Handler(void);
 #define Anoda_4_GPIO_Port GPIOB
 #define Enkoder_2_Pin GPIO_PIN_15
 #define Enkoder_2_GPIO_Port GPIOB
-#define Enkoder_2C11_Pin GPIO_PIN_11
-#define Enkoder_2C11_GPIO_Port GPIOC
 #define Klawisz_Pin GPIO_PIN_12
 #define Klawisz_GPIO_Port GPIOC
 #define Katoda_A_Pin GPIO_PIN_0
