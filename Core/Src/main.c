@@ -46,7 +46,7 @@
 /* USER CODE BEGIN PV */
 const unsigned char seg7[] = {0xC0, 0xF9, 0xA4, 0xB0,
                               0x99, 0x92, 0x82, 0xF8,
-                              0x80, 0x90};
+                              0x80, 0x90, 0x5F};
 
 volatile uint8_t LED_buf[4] = {0,0,0,0};
 volatile uint8_t LED_ptr;
@@ -77,6 +77,7 @@ static void vTask1(void *pvParameters);
 static void vTask1(void *pvParameters)
 {
   static uint8_t znak[4] = {0,0,0,0};
+	static uint8_t wyswietl = 0;
 	
 	for( ;; )
 	{
@@ -86,6 +87,7 @@ static void vTask1(void *pvParameters)
 			xQueueReceive(Wys_B, &znak[1], ( TickType_t ) 0 );
 			xQueueReceive(Wys_C, &znak[2], ( TickType_t ) 0 );
 			xQueueReceive(Wys_D, &znak[3], ( TickType_t ) 0 );
+      xQueueReceive(ZmianaCyfry, &wyswietl, (TickType_t)0);
 			LED_buf[0] = seg7[znak[0]];
 			LED_buf[1] = seg7[znak[1]];
 			LED_buf[2] = seg7[znak[2]];
@@ -101,7 +103,7 @@ static void vTask1(void *pvParameters)
 		  Katoda_A_GPIO_Port->BSRR = (uint32_t)(~LED_buf[LED_ptr]) << 16;
 		
 		  // wybor wyswietlacza
-      switch (LED_ptr)
+      switch (wyswietl)
       {
         case 0: HAL_GPIO_WritePin(Anoda_1_GPIO_Port, Anoda_1_Pin, GPIO_PIN_SET);
                 break;
@@ -122,8 +124,7 @@ static void vTask2(void *pvParameters)
 {
   static uint8_t dane_enkoder = 0;
   static uint8_t klawisz_enkoder = 0;
-//  static uint8_t dane_wyswietlacz[4] = {0, 0, 0, 0};
-  static uint8_t WzorzecHasla[4] = {1, 1, 1, 1};
+  static uint8_t dane_wyswietlacz[4] = {0, 0, 0, 0};
 
   for(;;)
   {
@@ -158,41 +159,103 @@ static void vTask3(void *pvParameters)
   static uint8_t EnkoderWartosc = 0;
 	static uint8_t flaga_zmiany = 0;
   static uint8_t klawiszWyswietlacza = 0;
+	static uint8_t debouncer = 0, klawisz = 0;
+	static uint8_t left = 0, right = 0;
 
   for(;;)
   {
-    if (xSemaphoreTake(Tim50ms, portMAX_DELAY))
+    if (xSemaphoreTake(Tim2ms, portMAX_DELAY))
 		{
-			if(!HAL_GPIO_ReadPin(Enkoder_1_GPIO_Port, Enkoder_1_Pin))//odejmowanie
+			left = !HAL_GPIO_ReadPin(Enkoder_1_GPIO_Port, Enkoder_1_Pin);
+			right = !HAL_GPIO_ReadPin(Enkoder_2_GPIO_Port, Enkoder_2_Pin);
+			switch(debouncer)
 			{
-				if(flaga_zmiany == 0)
-				{
-				if(EnkoderWartosc == 0 ) EnkoderWartosc = 9;
-				else EnkoderWartosc--;
-				flaga_zmiany = 1;
-				}
+				case 0: //00
+					if(left&&!right) debouncer = 1;
+					if(!left&&right) debouncer = 4;
+					break;
+				case 1: //01
+					if(left&&!right) debouncer = 1;
+					else{ if(left&&right) debouncer = 2;
+					else debouncer = 0;}
+					break;
+				case 2: //11
+					if(left&&right) debouncer = 2;
+					else{ if(!left&&right) debouncer = 3;
+					else debouncer = 1;}
+					break;
+				case 3: //10
+					if(!left&&right) debouncer = 3;
+					else{ if(!left&&!right)
+					{
+						if(flaga_zmiany == 0)
+						{
+						if(EnkoderWartosc == 0 ) EnkoderWartosc = 9;
+						else EnkoderWartosc--;
+						flaga_zmiany = 1;
+						}
+						debouncer = 0;
+					}
+					else debouncer = 2;}
+					break;
+				case 4: //10
+					if(!left&&right) debouncer = 4;
+					else{ if(left&&right) debouncer = 5;
+					else debouncer = 0;}
+					break;
+				case 5: //11
+					if(left&&right) debouncer = 5;
+					else{ if(left&&!right) debouncer = 6;
+					else debouncer = 3;}
+					break;
+				case 6: //01
+					if(left&&!right) debouncer = 6;
+					else{ if(!left&&!right)
+					{
+						if(flaga_zmiany == 0)
+						{
+						if(EnkoderWartosc == 9) EnkoderWartosc = 0; 
+						else EnkoderWartosc++;
+						flaga_zmiany = 1;
+						}
+						debouncer = 0;
+					}
+					else debouncer = 5;}
+					break;
+
 			}
-			if(!HAL_GPIO_ReadPin(Enkoder_2_GPIO_Port, Enkoder_2_Pin))//dodawanie
-			{
-				if(flaga_zmiany == 0)
-				{
-				if(EnkoderWartosc == 9) EnkoderWartosc = 0; 
-				else EnkoderWartosc++;
-				flaga_zmiany = 1;
-				}
-			}
+			
 			xQueueSend(HasloJendenZnak , &EnkoderWartosc, portMAX_DELAY);
 			xQueueSend(ZmianaCyfry , &klawiszWyswietlacza, portMAX_DELAY);
 		}
 		flaga_zmiany = 0;
-		if (xSemaphoreTake(Tim100ms, portMAX_DELAY))
+		if (xSemaphoreTake(Tim20ms, portMAX_DELAY))
 		{
-      if(!HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))
+      switch(klawisz)
 			{
-        if(klawiszWyswietlacza > 4) klawiszWyswietlacza = 0;
-        else klawiszWyswietlacza++;
-        EnkoderWartosc = 0;
-      }
+				case 0:
+					if(HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=0;
+					else klawisz=1;
+					break;
+				case 1:
+					if(HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=1;
+					else
+						{
+							if(klawiszWyswietlacza > 4) klawiszWyswietlacza = 0;
+							else klawiszWyswietlacza++;
+							EnkoderWartosc = 0;
+							klawisz=2;
+						}
+					break;
+				case 2:
+					if(!HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=2;
+					else klawisz=3;
+					break;
+				case 3:
+					if(!HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=3;
+					else klawisz=0;
+					break;
+			}
 		}
   }
 }
@@ -206,10 +269,11 @@ void vApplicationTickHook(void)
   static uint8_t time2ms = 0;
   signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
-  if (++time2ms > 1)
-  {
-    time2ms = 0;
-    xSemaphoreGiveFromISR(Tim2ms, &xHigherPriorityTaskWoken);
+		if (time2ms++ > 1)
+		{
+			time2ms = 0;
+			xSemaphoreGiveFromISR(Tim2ms, &xHigherPriorityTaskWoken);
+		}
     if (time1s++ > 250)
     {
 			time1s = 0;
@@ -230,7 +294,7 @@ void vApplicationTickHook(void)
 			time20ms = 0;
 			xSemaphoreGiveFromISR(Tim20ms, &xHigherPriorityTaskWoken);
 		}
-	}
+	
   
   if (xHigherPriorityTaskWoken == pdTRUE) taskYIELD();
 }
