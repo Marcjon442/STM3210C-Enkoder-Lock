@@ -136,7 +136,7 @@ static void vTask2(void *pvParameters)
       dane_wyswietlacz[klawisz_enkoder] = dane_enkoder;
       if(klawisz_enkoder == 4)
       {
-        if(dane_wyswietlacz[0] == 0 && dane_wyswietlacz[1] == 0 && dane_wyswietlacz[2] == 0 && dane_wyswietlacz[3]== 0)
+        if(dane_wyswietlacz[0] == 1 && dane_wyswietlacz[1] == 2 && dane_wyswietlacz[2] == 3 && dane_wyswietlacz[3]== 4)
         {
           HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_RESET);
 					HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
