@@ -1,8 +1,8 @@
 Dependencies for Project 'ZamekSzyfrowy', Target 'ZamekSzyfrowy': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f107xc.s)(0x63DFD252)(--cpu Cortex-M3 --pd "__EVAL SETA 1" -g --apcs=interwork -I ..\Core\Inc-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include--pd "__UVISION_VERSION SETA 538" --pd "_RTE_ SETA 1" --pd "STM32F10X_CL SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f107xc.lst --xref -o zamekszyfrowy\startup_stm32f107xc.o --depend zamekszyfrowy\startup_stm32f107xc.d)
-F (../Core/Src/main.c)(0x63E245C0)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\main.o --omf_browse zamekszyfrowy\main.crf --depend zamekszyfrowy\main.d)
-I (../Core/Inc/main.h)(0x63DFD24E)
+F (../Core/Src/main.c)(0x63E8CB97)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\main.o --omf_browse zamekszyfrowy\main.crf --depend zamekszyfrowy\main.d)
+I (../Core/Inc/main.h)(0x63E8C0F8)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
@@ -44,9 +44,10 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x61D724CF)
 I (../Core/Inc/gpio.h)(0x63DFD24B)
+I (../Core/Inc/Zamek.h)(0x63E8D1EB)
 F (../Core/Src/gpio.c)(0x63DFD24B)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\gpio.o --omf_browse zamekszyfrowy\gpio.crf --depend zamekszyfrowy\gpio.d)
 I (../Core/Inc/gpio.h)(0x63DFD24B)
-I (../Core/Inc/main.h)(0x63DFD24E)
+I (../Core/Inc/main.h)(0x63E8C0F8)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
@@ -85,7 +86,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x61D724CF)
-I (../Core/Inc/main.h)(0x63DFD24E)
+I (../Core/Inc/main.h)(0x63E8C0F8)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
@@ -116,7 +117,7 @@ I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x61D724CF)
 I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x61D724CF)
 F (../Core/Src/stm32f1xx_it.c)(0x63DFD24D)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\stm32f1xx_it.o --omf_browse zamekszyfrowy\stm32f1xx_it.crf --depend zamekszyfrowy\stm32f1xx_it.d)
-I (../Core/Inc/main.h)(0x63DFD24E)
+I (../Core/Inc/main.h)(0x63E8C0F8)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
@@ -145,7 +146,7 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61D724D6)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_it.h)(0x63DFD24D)
 F (../Core/Src/stm32f1xx_hal_msp.c)(0x63DFD24D)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\stm32f1xx_hal_msp.o --omf_browse zamekszyfrowy\stm32f1xx_hal_msp.crf --depend zamekszyfrowy\stm32f1xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x63DFD24E)
+I (../Core/Inc/main.h)(0x63E8C0F8)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
@@ -199,6 +200,51 @@ I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61D724D6)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61D724D6)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61D724D6)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61D724D6)
+F (..\Core\Inc\Zamek.h)(0x63E8D1EB)()
+F (..\Core\Src\Zamek.c)(0x63E8D1AE)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\zamek.o --omf_browse zamekszyfrowy\zamek.crf --depend zamekszyfrowy\zamek.d)
+I (../Core/Inc/Zamek.h)(0x63E8D1EB)
+I (../Core/Inc/main.h)(0x63E8C0F8)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
+I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h)(0x61D724D6)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f1xx.h)(0x61D724D6)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f107xc.h)(0x61D724D6)
+I (../Drivers/CMSIS/Include/core_cm3.h)(0x61D724CE)
+I (C:\Programy\Keil_v5\ARM\ARMCC\include\stdint.h)(0x602585EE)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x61D724CE)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x61D724CE)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x61D724CE)
+I (../Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x61D724D6)
+I (C:\Programy\Keil_v5\ARM\ARMCC\include\stddef.h)(0x602585EE)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc_ex.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio_ex.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_exti.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma_ex.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_cortex.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h)(0x61D724D6)
+I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h)(0x61D724D6)
+I (../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h)(0x61D724CF)
+I (../Core/Inc/FreeRTOSConfig.h)(0x63DFD24D)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/portable.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/deprecated_definitions.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3/portmacro.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/mpu_wrappers.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/task.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/list.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/timers.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/queue.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/semphr.h)(0x61D724CF)
+I (../Middlewares/Third_Party/FreeRTOS/Source/include/event_groups.h)(0x61D724CF)
+I (../Core/Inc/gpio.h)(0x63DFD24B)
 F (../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c)(0x61D724D6)(--c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM3 -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I.\RTE\_ZamekSzyfrowy-IC:\Users\marci\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\marci\AppData\Local\Arm\Packs\Keil\STM32F1xx_DFP\2.4.0\Device\Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F10X_CL -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F107xC-o zamekszyfrowy\stm32f1xx_hal_gpio_ex.o --omf_browse zamekszyfrowy\stm32f1xx_hal_gpio_ex.crf --depend zamekszyfrowy\stm32f1xx_hal_gpio_ex.d)
 I (../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h)(0x61D724D6)
 I (../Core/Inc/stm32f1xx_hal_conf.h)(0x63DFD24E)

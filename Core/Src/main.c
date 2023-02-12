@@ -2,9 +2,11 @@
 /**
   ******************************************************************************
   * @file    main.c
-  * @brief   This file provides code for the configuration
-  *          of all used GPIO pins.
-	* @author Jonik Marcin Watroba Michal
+  * @brief   Main program body
+	* @author  Marcin Jonik
+	*					 Michal Watroba
+	* @version 2.0
+	* @date		 12.02.2023
   ******************************************************************************
   * @attention
   *
@@ -26,7 +28,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "Zamek.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,7 +38,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define main_TASK_PRIORITY (tskIDLE_PRIORITY + 1)
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,23 +47,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-
 /* USER CODE BEGIN PV */
-
-const unsigned char seg7[] = {0xC0, 0xF9, 0xA4, 0xB0,
-                              0x99, 0x92, 0x82, 0xF8,
-                              0x80, 0x90, 0x5F};
-
-volatile uint8_t LED_buf[4] = {0,0,0,0};
-volatile uint8_t LED_ptr;
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
-/* USER CODE BEGIN PFP */
-xSemaphoreHandle Tim1s;
-xSemaphoreHandle Tim100ms;
 xSemaphoreHandle Tim50ms;
 xSemaphoreHandle Tim20ms;
 xSemaphoreHandle Tim2ms;
@@ -74,249 +60,49 @@ xQueueHandle Wys_D;
 xQueueHandle HasloJendenZnak;
 xQueueHandle ZmianaCyfry;
 xQueueHandle ZmianaCyfry2;
+/* USER CODE END PV */
+
+/* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
+void MX_FREERTOS_Init(void);
+/* USER CODE BEGIN PFP */
+void vTask1(void *pvParameters);
+void vTask2(void *pvParameters);
+void vTask3(void *pvParameters);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-/**
-			
-			
-			
-			
-			
-			wylaczenie wyswietlaczy
-			
-			
-			
-			
-			@brief tekst
-*/
-
-static void vTask1(void *pvParameters)
-{
-  static uint8_t znak[4] = {0,0,0,0};
-	uint8_t wyswietl = 0;
-	
-	for( ;; )
-	{
-		if (xSemaphoreTake(Tim2ms, portMAX_DELAY))
-		{
-			xQueueReceive(Wys_A, &znak[0], ( TickType_t ) 0 );
-			xQueueReceive(Wys_B, &znak[1], ( TickType_t ) 0 );
-			xQueueReceive(Wys_C, &znak[2], ( TickType_t ) 0 );
-			xQueueReceive(Wys_D, &znak[3], ( TickType_t ) 0 );
-      xQueueReceive(ZmianaCyfry2, &wyswietl, (TickType_t)0);
-			LED_buf[0] = seg7[znak[0]];
-			LED_buf[1] = seg7[znak[1]];
-			LED_buf[2] = seg7[znak[2]];
-			LED_buf[3] = seg7[znak[3]];
-		  // obsluga wyswietlacza siedmiosegmentowego LED
-      //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-      if ((++LED_ptr) > 3) LED_ptr = 0;
-
-			
-			
-			
-			
-      HAL_GPIO_WritePin(Anoda_1_GPIO_Port, Anoda_4_Pin|Anoda_3_Pin|Anoda_2_Pin
-                                          |Anoda_1_Pin, GPIO_PIN_RESET);
-		  // ustawienie segmentow
-      Katoda_A_GPIO_Port->BSRR = (uint32_t)LED_buf[wyswietl];
-		  Katoda_A_GPIO_Port->BSRR = (uint32_t)(~LED_buf[wyswietl]) << 16;
-		
-		  // wybor wyswietlacza
-      switch (wyswietl)
-      {
-        case 0: HAL_GPIO_WritePin(Anoda_1_GPIO_Port, Anoda_1_Pin, GPIO_PIN_SET);
-                break;
-        case 1: HAL_GPIO_WritePin(Anoda_2_GPIO_Port, Anoda_2_Pin, GPIO_PIN_SET);
-                break;
-        case 2: HAL_GPIO_WritePin(Anoda_3_GPIO_Port, Anoda_3_Pin, GPIO_PIN_SET);
-                break;
-        case 3: HAL_GPIO_WritePin(Anoda_4_GPIO_Port, Anoda_4_Pin, GPIO_PIN_SET);
-                break;
-      }
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			
-		}
-	}
-}
-static void vTask2(void *pvParameters);
-static void vTask2(void *pvParameters)
-{
-  static uint8_t dane_enkoder = 0;
-  static uint8_t klawisz_enkoder = 0;
-  static uint8_t dane_wyswietlacz[4] = {0, 0, 0, 0};
-
-  for(;;)
-  {
-    if(xSemaphoreTake(Tim50ms, portMAX_DELAY))
-    {
-      xQueueReceive(HasloJendenZnak, &dane_enkoder, (TickType_t)0);
-      xQueueReceive(ZmianaCyfry, &klawisz_enkoder, (TickType_t)0);
-      dane_wyswietlacz[klawisz_enkoder] = dane_enkoder;
-      if(klawisz_enkoder == 4)
-      {
-        if(dane_wyswietlacz[0] == 1 && dane_wyswietlacz[1] == 2 && dane_wyswietlacz[2] == 3 && dane_wyswietlacz[3]== 4)
-        {
-          HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_RESET);
-					HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_RESET);
-        }
-      }
-      else
-      {
-        HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_SET);
-        HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_SET);
-      }
-			xQueueSend(Wys_A , &dane_wyswietlacz[0], portMAX_DELAY);
-			xQueueSend(Wys_B , &dane_wyswietlacz[1], portMAX_DELAY);
-			xQueueSend(Wys_C , &dane_wyswietlacz[2], portMAX_DELAY);
-			xQueueSend(Wys_D , &dane_wyswietlacz[3], portMAX_DELAY);
-    }
-  }
-}
-static void vTask3(void *pvParameters);
-static void vTask3(void *pvParameters)
-{
-  static uint8_t EnkoderWartosc = 0;
-	static uint8_t flaga_zmiany = 0;
-  static uint8_t klawiszWyswietlacza = 0;
-	static uint8_t debouncer = 0, klawisz = 0;
-	static uint8_t left = 0, right = 0;
-
-  for(;;)
-  {
-    if (xSemaphoreTake(Tim2ms, portMAX_DELAY))
-		{
-			left = !HAL_GPIO_ReadPin(Enkoder_1_GPIO_Port, Enkoder_1_Pin);
-			right = !HAL_GPIO_ReadPin(Enkoder_2_GPIO_Port, Enkoder_2_Pin);
-			switch(debouncer)
-			{
-				case 0: //00
-					if(left&&!right) debouncer = 1;
-					if(!left&&right) debouncer = 4;
-					break;
-				case 1: //01
-					if(left&&!right) debouncer = 1;
-					else{ if(left&&right) debouncer = 2;
-					else debouncer = 0;}
-					break;
-				case 2: //11
-					if(left&&right) debouncer = 2;
-					else{ if(!left&&right) debouncer = 3;
-					else debouncer = 1;}
-					break;
-				case 3: //10
-					if(!left&&right) debouncer = 3;
-					else{ if(!left&&!right)
-					{
-						if(flaga_zmiany == 0)
-						{
-						if(EnkoderWartosc == 0 ) EnkoderWartosc = 9;
-						else EnkoderWartosc--;
-						flaga_zmiany = 1;
-						}
-						debouncer = 0;
-					}
-					else debouncer = 2;}
-					break;
-				case 4: //10
-					if(!left&&right) debouncer = 4;
-					else{ if(left&&right) debouncer = 5;
-					else debouncer = 0;}
-					break;
-				case 5: //11
-					if(left&&right) debouncer = 5;
-					else{ if(left&&!right) debouncer = 6;
-					else debouncer = 3;}
-					break;
-				case 6: //01
-					if(left&&!right) debouncer = 6;
-					else{ if(!left&&!right)
-					{
-						if(flaga_zmiany == 0)
-						{
-						if(EnkoderWartosc == 9) EnkoderWartosc = 0; 
-						else EnkoderWartosc++;
-						flaga_zmiany = 1;
-						}
-						debouncer = 0;
-					}
-					else debouncer = 5;}
-					break;
-
-			}
-		}
-		flaga_zmiany = 0;
-		if (xSemaphoreTake(Tim20ms, portMAX_DELAY))
-		{
-      switch(klawisz)
-			{
-				case 0:
-					if(HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=0;
-					else klawisz=1;
-					break;
-				case 1:
-					if(HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=1;
-					else
-						{
-							if(klawiszWyswietlacza == 4) klawiszWyswietlacza = 0;
-							else klawiszWyswietlacza++;
-							EnkoderWartosc = 0;
-							klawisz=2;
-						}
-					break;
-				case 2:
-					if(!HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=2;
-					else klawisz=3;
-					break;
-				case 3:
-					if(!HAL_GPIO_ReadPin(Klawisz_GPIO_Port, Klawisz_Pin))klawisz=3;
-					else klawisz=0;
-					break;
-			}
-		}
-			xQueueSend(HasloJendenZnak , &EnkoderWartosc, portMAX_DELAY);
-			xQueueSend(ZmianaCyfry , &klawiszWyswietlacza, portMAX_DELAY);
-			xQueueSend(ZmianaCyfry2 , &klawiszWyswietlacza, portMAX_DELAY);
-  }
-}
 
 void vApplicationTickHook(void)
 {
-  static uint8_t time1s = 0;
-  static uint8_t time100ms = 0;
+	/* definiowanie zmiennych lokalnych funckji */
   static uint8_t time50ms = 0;
   static uint8_t time20ms = 0;
   static uint8_t time2ms = 0;
   signed portBASE_TYPE xHigherPriorityTaskWoken = pdFALSE;
 
+	/* Tworzenie impulsu z czestoscia odswiezania 2ms */
 		if (time2ms++ > 1)
 		{
 			time2ms = 0;
+			/* Wysylanie zmiennej time2ms przez Semaphor */
 			xSemaphoreGiveFromISR(Tim2ms, &xHigherPriorityTaskWoken);
 		}
-    if (time1s++ > 250)
-    {
-			time1s = 0;
-      xSemaphoreGiveFromISR(Tim1s, &xHigherPriorityTaskWoken);
-    }
-		if (time100ms++ >50)
+	/* Tworzenie impulsu z czestoscia odswiezania 2ms */
+		if (time20ms++ > 10)
 		{
-			time100ms = 0;
-			xSemaphoreGiveFromISR(Tim100ms, &xHigherPriorityTaskWoken);
+			time20ms = 0;
+			/* Wysylanie zmiennej time20ms przez Semaphor */
+			xSemaphoreGiveFromISR(Tim20ms, &xHigherPriorityTaskWoken);
 		}
+	/* Tworzenie impulsu z czestoscia odswiezania 2ms */
 		if (time50ms++ >25)
 		{
 			time50ms = 0;
+			/* Wysylanie zmiennej time50ms przez Semaphor */
 			xSemaphoreGiveFromISR(Tim50ms, &xHigherPriorityTaskWoken);
-		}
-		if (time20ms++ >10)
-		{
-			time20ms = 0;
-			xSemaphoreGiveFromISR(Tim20ms, &xHigherPriorityTaskWoken);
-		}
-	
+		}	
   
   if (xHigherPriorityTaskWoken == pdTRUE) taskYIELD();
 }
@@ -351,26 +137,35 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   /* USER CODE BEGIN 2 */
+	/* Wstepne ustawianie diod LED */
   HAL_GPIO_WritePin(LED_1_GPIO_Port, LED_1_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(LED_2_GPIO_Port, LED_2_Pin, GPIO_PIN_SET);
 
-  vSemaphoreCreateBinary(Tim1s);
-  vSemaphoreCreateBinary(Tim100ms);
+/* definiowanie Semaphora imitujacego czas 50ms */
 	vSemaphoreCreateBinary(Tim50ms);
+	/* definiowanie Semaphora imitujacego czas 20ms */
   vSemaphoreCreateBinary(Tim20ms);
+	/* definiowanie Semaphora imitujacego czas 2ms */
   vSemaphoreCreateBinary(Tim2ms);
 
+/* definiowanie kolejek przesylajacych wyswietlane dane */
   Wys_A = xQueueCreate( 16, sizeof(uint8_t) );
 	Wys_B = xQueueCreate( 16, sizeof(uint8_t) );
 	Wys_C = xQueueCreate( 16, sizeof(uint8_t) );
 	Wys_D = xQueueCreate( 16, sizeof(uint8_t) );
 
+/* definiowanie kolejki przesylajacej jeden znak hasla */
   HasloJendenZnak = xQueueCreate( 16, sizeof(uint8_t) );
+/* definiowanie kolejki przesylajacej numer wyswietlanej cyfry hasla */
   ZmianaCyfry = xQueueCreate( 16, sizeof(uint8_t) );
+/* definiowanie kolejki przesylajacej numer wyswietlanej cyfry hasla */
   ZmianaCyfry2 = xQueueCreate( 16, sizeof(uint8_t) );
   
-  xTaskCreate(vTask1, "WyswietlaczSiedmioSegmentowy", configMINIMAL_STACK_SIZE, NULL, main_TASK_PRIORITY, NULL);
+/* definiowanie Taska1 odpowiadajacego za obsluge wyswietlaczy siedmiosegmentowych */
+  xTaskCreate(vTask1, "WyswietlaczSiedmioSegmentowy", configMINIMAL_STACK_SIZE, NULL,
+/* definiowanie Taska1 odpowiadajacego za sprawdzanie poprawnosci wprowadzonego hasla */ main_TASK_PRIORITY, NULL);
 	xTaskCreate(vTask2, "PorownywanieHasla", configMINIMAL_STACK_SIZE, NULL, main_TASK_PRIORITY, NULL);
+/* definiowanie Taska1 odpowiadajacego za obsluge enkodera obrotowego */
 	xTaskCreate(vTask3, "ObslugaEnkodera", configMINIMAL_STACK_SIZE, NULL, main_TASK_PRIORITY, NULL);
   /* USER CODE END 2 */
 

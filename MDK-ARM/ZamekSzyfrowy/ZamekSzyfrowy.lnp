@@ -6,6 +6,7 @@
 "zamekszyfrowy\stm32f1xx_it.o"
 "zamekszyfrowy\stm32f1xx_hal_msp.o"
 "zamekszyfrowy\stm32f1xx_hal_timebase_tim.o"
+"zamekszyfrowy\zamek.o"
 "zamekszyfrowy\stm32f1xx_hal_gpio_ex.o"
 "zamekszyfrowy\stm32f1xx_hal.o"
 "zamekszyfrowy\stm32f1xx_hal_rcc.o"

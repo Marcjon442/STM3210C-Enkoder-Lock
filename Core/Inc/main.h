@@ -41,20 +41,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-static void vTask1(void *pvParameters);
-/**
-			
-			
-			
-			
-			
-			wylaczenie wyswietlaczy
-			
-			
-			
-			
-			@brief tekst
-*/
+
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/

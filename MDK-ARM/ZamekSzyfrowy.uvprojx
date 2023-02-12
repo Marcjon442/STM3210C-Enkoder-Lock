@@ -424,6 +424,16 @@
               <FileType>1</FileType>
               <FilePath>../Core/Src/stm32f1xx_hal_timebase_tim.c</FilePath>
             </File>
+            <File>
+              <FileName>Zamek.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\Core\Inc\Zamek.h</FilePath>
+            </File>
+            <File>
+              <FileName>Zamek.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\Zamek.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
