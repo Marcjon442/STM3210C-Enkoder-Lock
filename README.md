@@ -27,6 +27,3 @@ Na mikrokontrolerze uruchomiony został system wbydowany FreeRTOS, dla którego 
 
 - LED_1 -> PE14
 - LED_2 -> PE15
-
-## Dokumentacja
-![alt text](https://github.com/Marcjon442/STM3210C-Enkoder-Lock/blob/main/Dokumentacja-Doxygen.pdf)
