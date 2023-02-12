@@ -1,8 +1,10 @@
 /* USER CODE BEGIN Header */
 /**
   ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
+  * @file    main.c
+  * @brief   This file provides code for the configuration
+  *          of all used GPIO pins.
+	* @author Jonik Marcin Watroba Michal
   ******************************************************************************
   * @attention
   *
@@ -15,6 +17,7 @@
   *
   ******************************************************************************
   */
+
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
@@ -44,6 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+
 const unsigned char seg7[] = {0xC0, 0xF9, 0xA4, 0xB0,
                               0x99, 0x92, 0x82, 0xF8,
                               0x80, 0x90, 0x5F};
@@ -74,7 +78,20 @@ xQueueHandle ZmianaCyfry2;
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-static void vTask1(void *pvParameters);
+/**
+			
+			
+			
+			
+			
+			wylaczenie wyswietlaczy
+			
+			
+			
+			
+			@brief tekst
+*/
+
 static void vTask1(void *pvParameters)
 {
   static uint8_t znak[4] = {0,0,0,0};
@@ -96,7 +113,11 @@ static void vTask1(void *pvParameters)
 		  // obsluga wyswietlacza siedmiosegmentowego LED
       //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
       if ((++LED_ptr) > 3) LED_ptr = 0;
-		  // wylaczenie wyswietlaczy
+
+			
+			
+			
+			
       HAL_GPIO_WritePin(Anoda_1_GPIO_Port, Anoda_4_Pin|Anoda_3_Pin|Anoda_2_Pin
                                           |Anoda_1_Pin, GPIO_PIN_RESET);
 		  // ustawienie segmentow
