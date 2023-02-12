@@ -7,23 +7,23 @@ Na mikrokontrolerze uruchomiony został system wbydowany FreeRTOS, dla którego 
 ![alt text](https://github.com/Marcjon442/STM3210C-Enkoder-Lock/blob/main/Schemat.png)
 ### Opis wyprowadzeń
 
-Anoda_1 -> PB1
-Anoda_2 -> PB5
-Anoda_3 -> PB9
-Anoda_4 -> PB14
+- Anoda_1 -> PB1
+- Anoda_2 -> PB5
+- Anoda_3 -> PB9
+- Anoda_4 -> PB14
 
-Katoda_A -> PD0
-Katoda_B -> PD1
-Katoda_C -> PD2
-Katoda_D -> PD3
-Katoda_E -> PD4
-Katoda_F -> PD5
-Katoda_G -> PD6
-Katoda_H -> PD7
+- Katoda_A -> PD0
+- Katoda_B -> PD1
+- Katoda_C -> PD2
+- Katoda_D -> PD3
+- Katoda_E -> PD4
+- Katoda_F -> PD5
+- Katoda_G -> PD6
+- Katoda_H -> PD7
 
-Enkoder_1 -> PC4
-Enkoder_2 -> PB15
-Potwierdzenie -> PC12
+- Enkoder_1 -> PC4
+- Enkoder_2 -> PB15
+- Potwierdzenie -> PC12
 
-LED_1 -> PE14
-LED_2 -> PE15
+- LED_1 -> PE14
+- LED_2 -> PE15
