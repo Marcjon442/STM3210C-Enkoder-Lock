@@ -1,5 +1,5 @@
 # Enkoder-Lock-STM3210C
-![alt text](https://github.com/Marcjon442/STM3210C-Enkoder-Lock/blob/main/Zdjecie.png)
+
 ## Opis
 Przedmiotem projektu jest Zamek szyfory. Zamek został zaprojektowany na płycie uruchomieniowej ZL29ARM firmy KAMAMI.
 Płyta wyposarzona jest w mikrokontroler STM32F107VCT6.
